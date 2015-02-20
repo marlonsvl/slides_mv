@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Course Project</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Course Project">
+  <meta name="author" content="Marlon Vinan">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="./librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="./librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="./librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="./librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="./librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="./librariesNew/frameworks/io2012/js/slides" 
+    src="./librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="./assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Course Project</h1>
+    <h2>Calculate the total body water</h2>
+    <p>Marlon Vinan<br/>UTPL</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Context Application</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Shiny application was developed to calculate the total body water</li>
+<li>Is related to the physiology topic</li>
+<li>Total body water</li>
+<li>BODY FLUID COMPARTMENTS</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Prediction Function</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Using this calc:
+\[total-body-water = {0.6 * weight}\]
+<img src="./assets/img/fbc.png" alt="markup" title="Markup in ui.R"></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>ui.R</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <pre><code>library(shiny)
+shinyUI(fluidPage(
+  headerPanel(&quot;Total body water &quot;),
+  sidebarLayout(
+    sidebarPanel(
+      helpText(&quot;HOMEOSTASIS &amp; BASIC MECHANISMS. Calculus of body fluid components.
+               Total body water = ICF + ECF where ECF = IS + IVS&quot;),
+
+      numericInput(&#39;weight&#39;, &#39;Weight kg&#39;, 64, min = 0, max = 500, step = 1), 
+      submitButton(&#39;Submit&#39;)
+    ),
+    mainPanel(
+      h3(&#39;Results of prediction&#39;),
+      h4(&#39;You entered&#39;),
+      verbatimTextOutput(&quot;inputValue&quot;), 
+      h4(&#39;Total body water (L)&#39;), 
+      verbatimTextOutput(&quot;prediction&quot;)
+    )
+  )
+))
+</code></pre>
+
+<hr>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>server.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>totalbodywater &lt;- function(weight) weight * 0.6
+shinyServer(function(input, output) {
+  output$inputValue &lt;- renderPrint({input$weight})
+  output$prediction &lt;- renderPrint({totalbodywater(input$weight)}) 
+})
+
+</code></pre>
+
+<hr>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Context Application'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Prediction Function'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='ui.R'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='server.R'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="./librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="./librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
